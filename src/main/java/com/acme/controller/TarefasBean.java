@@ -9,17 +9,17 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Named 
+@Named
 @ViewScoped
-public class TarefasBean  implements Serializable{
-    
+public class TarefasBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private TarefaFacade facade;
- 
+
     private Tarefa novaTarefa = new Tarefa();
-    
+
     public Tarefa getNovaTarefa() {
         return novaTarefa;
     }
@@ -27,9 +27,15 @@ public class TarefasBean  implements Serializable{
     public List<Tarefa> getTarefas() {
         return facade.findAll();
     }
-    
-    public void adicionar(){
+
+    public void adicionar() {
         facade.create(novaTarefa);
         novaTarefa = new Tarefa();
+    }
+
+    public void remover() {
+        for (Tarefa tarefa : getTarefas()) {
+            facade.remove(tarefa);
+        }
     }
 }
